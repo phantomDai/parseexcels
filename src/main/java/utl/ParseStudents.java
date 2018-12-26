@@ -12,7 +12,7 @@ import static java.io.File.separator;
 
 /**
  * @author phantom
- * @Description 解析学生信息文件下的数据
+ * @Description
  * @date 2018/12/23/023
  */
 public class ParseStudents {
@@ -795,13 +795,6 @@ public class ParseStudents {
             e.printStackTrace();
         }
     }
-
-
-
-
-
-
-
 
     /**
      * get the list of years
