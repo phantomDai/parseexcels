@@ -39,7 +39,9 @@ public class ParseOrganization {
 
 
     public ParseOrganization(){
-
+        iniMap();
+        years = parseExcelsGetYears();
+        names = parseExcelsGetNames();
     }
 
     private void iniMap(){
@@ -664,14 +666,11 @@ public class ParseOrganization {
     }
 
 
+    public List<String> getYears() {
+        return years;
+    }
 
-
-
-
-
-
-
-
-
-
+    public Set<String> getNames() {
+        return names;
+    }
 }

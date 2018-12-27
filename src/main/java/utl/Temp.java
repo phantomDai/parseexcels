@@ -42,10 +42,16 @@ public class Temp {
 //                " " + entry.getValue()[1]+ " " + entry.getValue()[2]+ " " + entry.getValue()[3]+ " " + entry.getValue()[4]);
 //        }
 
-        ParseStudents parseStudents = new ParseStudents();
-        List<String> tempList = parseStudents.getYears();
-        for (int i = 0; i < tempList.size(); i++) {
-            System.out.println(tempList.get(i));
+//        ParseStudents parseStudents = new ParseStudents();
+//        List<String> tempList = parseStudents.getYears();
+//        for (int i = 0; i < tempList.size(); i++) {
+//            System.out.println(tempList.get(i));
+//        }
+
+        ParseOrganization parseOrganization = new ParseOrganization();
+        List<String> tempListYears = parseOrganization.getYears();
+        for (int i = 0; i < tempListYears.size(); i++) {
+            System.out.println(tempListYears.get(i));
         }
     }
 }

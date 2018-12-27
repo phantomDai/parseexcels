@@ -583,12 +583,12 @@ public class MainFrame extends javax.swing.JFrame {
         orginationyear2.setFont(new java.awt.Font("宋体", 0, 15)); // NOI18N
         orginationyear2.setText("年度：");
 
-        orginationyearBox1.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        orginationyearBox1.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "全部" }));
 
         organazationorgination.setFont(new java.awt.Font("宋体", 0, 15)); // NOI18N
         organazationorgination.setText("单位：");
 
-        orgnazationBox2.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        orgnazationBox2.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "全部" }));
 
         orginationsearch.setText("查询");
         orginationsearch.addActionListener(new java.awt.event.ActionListener() {
@@ -1041,6 +1041,26 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void orginationUpdateActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
+        List<String> tempListYears = parseOrganization.getYears();
+        String[] tempArrayYears = new String[tempListYears.size() + 1];
+        for (int i = 0; i < tempArrayYears.length; i++) {
+            if (i == 0){
+                tempArrayYears[0] = "全部";
+            }else {
+                tempArrayYears[i] = tempListYears.get(i - 1);
+            }
+        }
+        Set<String> tempListschools = parseOrganization.getNames();
+        String[] tempArrayschools = new String[tempListschools.size() + 1];
+        Iterator it = tempListschools.iterator();
+        tempArrayschools[0] = "全部";
+        int count = 1;
+        while(it.hasNext()){
+            tempArrayschools[count] = (String) it.next();
+            count++;
+        }
+        orginationyearBox1.setModel(new javax.swing.DefaultComboBoxModel<String>(tempArrayYears));
+        orgnazationBox2.setModel(new javax.swing.DefaultComboBoxModel<String>(tempArrayschools));
     }
 
     /**
