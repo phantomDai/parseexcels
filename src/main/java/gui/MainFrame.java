@@ -1033,7 +1033,69 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void orginationsearchActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
+        String selectedYear = (String) orginationyearBox1.getSelectedItem();
+
+        String selectedSchool = (String) orgnazationBox2.getSelectedItem();
+
+        Map<String,String[]> minzudangpaizuzhijigou =
+                parseOrganization.getMinzudangpaizuzhijigouData(selectedYear,selectedSchool);
+
+        Map<String,String[]> minzudangpaichengyuan =
+                parseOrganization.getMinzudangpaichengyuanData(selectedYear,selectedSchool);
+
+        Map<String,String[]> minzudangpaizuzhifazhan =
+                parseOrganization.getMinzudangpaizuzhifazhanData(selectedYear,selectedSchool);
+
+        Map<String,String[]> gaojizhishifenzi =
+                parseOrganization.getGaojizhishiData(selectedYear,selectedSchool);
+        Map<String,String[]> shizhiganbushuju =
+                parseOrganization.getShiZhiGanBuData(selectedYear,selectedSchool);
+
+        List<List<String>> dangwaijujishuju =
+                parseOrganization.getDangwaijujiData(selectedYear,selectedSchool);
+
+        minzudangpaizuzhichengyuan.setModel(new javax.swing.table.DefaultTableModel(turnMapToMatrix(minzudangpaichengyuan),
+                new String [] {
+                        "民族", "研究生（班数）", "研究生（人数）", "本专科生（班数）", "本专科生（人数）", "预科班（班数）", "预科班（人数）", "总计（班数）", "总计（人数）"
+                }));
+
+        minzudangpaizuzhi.setModel(new javax.swing.table.DefaultTableModel(turnMapToMatrix(minzudangpaizuzhifazhan),
+                new String [] {
+                        "民族", "研究生（班数）", "研究生（人数）", "本专科生（班数）", "本专科生（人数）", "预科班（班数）", "预科班（人数）", "总计（班数）", "总计（人数）"
+                }));
+
+        gaojizhishi.setModel(new javax.swing.table.DefaultTableModel(turnMapToMatrix(gaojizhishifenzi),
+                new String [] {
+                        "民族", "研究生（班数）", "研究生（人数）", "本专科生（班数）", "本专科生（人数）", "预科班（班数）", "预科班（人数）", "总计（班数）", "总计（人数）"
+                }));
+
+        shizhiganbu.setModel(new javax.swing.table.DefaultTableModel(turnMapToMatrix(shizhiganbushuju),
+                new String [] {
+                        "民族", "研究生（班数）", "研究生（人数）", "本专科生（班数）", "本专科生（人数）", "预科班（班数）", "预科班（人数）", "总计（班数）", "总计（人数）"
+                }));
+
+        dangwaijuji.setModel(new javax.swing.table.DefaultTableModel(turnListToMatrix(dangwaijujishuju),
+                new String [] {
+                        "民族", "研究生（班数）", "研究生（人数）", "本专科生（班数）", "本专科生（人数）", "预科班（班数）", "预科班（人数）", "总计（班数）", "总计（人数）"
+                }));
+
+        minzhudangpai.setModel(new javax.swing.table.DefaultTableModel(turnMapToMatrix(minzudangpaizuzhijigou),
+                new String [] {
+                        "民族", "研究生（班数）", "研究生（人数）", "本专科生（班数）", "本专科生（人数）", "预科班（班数）", "预科班（人数）", "总计（班数）", "总计（人数）"
+                }));
     }
+
+    private String[][] turnListToMatrix (List<List<String>> list){
+        String[][] result = new String[list.size()][list.get(0).size()];
+        for (int i = 0; i < list.size(); i++) {
+            for (int j = 0; j < list.get(i).size(); j++) {
+                result[i][j] = list.get(i).get(j);
+            }
+        }
+        return result;
+    }
+
+
 
     private void orginationoutputActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
