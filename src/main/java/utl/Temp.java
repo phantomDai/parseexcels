@@ -7,6 +7,7 @@ import jxl.read.biff.BiffException;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static java.io.File.separator;
@@ -34,11 +35,17 @@ public class Temp {
 //           e.printStackTrace();
 //       }
 
+//        ParseStudents parseStudents = new ParseStudents();
+//        Map<String, String[]> map = parseStudents.getZaiXiaoData("2018", "北京科技大学");
+//        for (Map.Entry<String, String[]> entry : map.entrySet()) {
+//            System.out.println("Key = " + entry.getKey() + " " + entry.getValue()[0] +
+//                " " + entry.getValue()[1]+ " " + entry.getValue()[2]+ " " + entry.getValue()[3]+ " " + entry.getValue()[4]);
+//        }
+
         ParseStudents parseStudents = new ParseStudents();
-        Map<String, String[]> map = parseStudents.getZaiXiaoData("2018", "北京科技大学");
-        for (Map.Entry<String, String[]> entry : map.entrySet()) {
-            System.out.println("Key = " + entry.getKey() + " " + entry.getValue()[0] +
-                " " + entry.getValue()[1]+ " " + entry.getValue()[2]+ " " + entry.getValue()[3]+ " " + entry.getValue()[4]);
+        List<String> tempList = parseStudents.getYears();
+        for (int i = 0; i < tempList.size(); i++) {
+            System.out.println(tempList.get(i));
         }
     }
 }

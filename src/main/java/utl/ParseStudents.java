@@ -801,7 +801,6 @@ public class ParseStudents {
      * @return the list
      */
     public List<String> getYears() {
-        years.add("全部");
         return years;
     }
 
@@ -810,7 +809,6 @@ public class ParseStudents {
      * @return the list of names
      */
     public Set<String> getNames() {
-        names.add("全部");
         return names;
     }
 
