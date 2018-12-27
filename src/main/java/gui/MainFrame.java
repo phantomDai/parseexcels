@@ -6,6 +6,7 @@ import utl.ParseStudents;
 import javax.swing.table.TableColumn;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -963,7 +964,67 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     private void schoolSearchActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+        // get the selected year
+        String selectedYear = (String) schoolYearjComboBox1.getSelectedItem();
+        //get the selected name
+        String selectedSchool = (String) schoolOrganizationsjComboBox2.getSelectedItem();
+        //get data
+        Map<String,String[]> gangaotai = parseStudents.getGangAoTaiData(selectedYear,selectedSchool);
+        Map<String,String[]> huaqiao = parseStudents.getHuaQiaoData(selectedYear,selectedSchool);
+        Map<String,String[]> taiwan = parseStudents.getTaiWanData(selectedYear,selectedSchool);
+        Map<String,String[]> waiguo = parseStudents.getWaiGuoData(selectedYear,selectedSchool);
+        Map<String,String[]> shaoshuminzu = parseStudents.getShaoShuMinZuData(selectedYear,selectedSchool);
+        Map<String,String[]> shaoshuminzuban = parseStudents.getShaoShuMinZuBanData(selectedYear,selectedSchool);
+        Map<String,String[]> zaixiao = parseStudents.getZaiXiaoData(selectedYear,selectedSchool);
+
+
+        gangaoxuesehng.setModel(new javax.swing.table.DefaultTableModel(turnMapToMatrix(gangaotai),
+                new String [] {
+                        "类别", "招生数", "现在校总数"
+                }));
+
+        gangaoxuesehng1.setModel(new javax.swing.table.DefaultTableModel(turnMapToMatrix(shaoshuminzuban),
+                new String [] {
+                        "民族", "研究生（班数）", "研究生（人数）", "本专科生（班数）", "本专科生（人数）", "预科班（班数）", "预科班（人数）", "总计（班数）", "总计（人数）"
+                }));
+
+        zaixiaoxuesheng.setModel(new javax.swing.table.DefaultTableModel(turnMapToMatrix(zaixiao),
+                new String [] {
+                        "研究生（男）", "研究生（女）", "本专科生（男）", "本专科生（女", "总计"
+                }));
+
+        shaoshuxuesheng.setModel(new javax.swing.table.DefaultTableModel(turnMapToMatrix(shaoshuminzu),
+                new String [] {
+                        "民族", "研究生（男）", "研究生（女）", "本专科生（男）", "本专科生（女）", "合计"
+                }));
+
+        waiguoxuesheng.setModel(new javax.swing.table.DefaultTableModel(turnMapToMatrix(waiguo),
+                new String [] {
+                        "类别", "招生数", "现在校总数"
+                }));
+
+        taiwanxuesheng.setModel(new javax.swing.table.DefaultTableModel(turnMapToMatrix(taiwan),
+                new String [] {
+                        "类别", "招生数", "现在校总数"
+                }));
+
+        huaqiaoxuesheng.setModel(new javax.swing.table.DefaultTableModel(turnMapToMatrix(huaqiao),
+                new String [] {
+                        "类别", "招生数", "现在校总数"
+                }));
+    }
+
+    private String[][] turnMapToMatrix(Map<String,String[]> map){
+        String[][] result = new String[map.size()][map.entrySet().iterator().next().getValue().length + 1];
+        int count = 0;
+        for (Map.Entry<String,String[]> entry : map.entrySet()) {
+            result[count][0] = entry.getKey();
+            for (int i = 0; i < entry.getValue().length; i++) {
+                result[count][i + 1] = entry.getValue()[i];
+            }
+            count++;
+        }
+        return result;
     }
 
     private void schoolOutputActionPerformed(java.awt.event.ActionEvent evt) {
