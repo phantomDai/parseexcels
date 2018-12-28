@@ -665,7 +665,6 @@ public class ParseOrganization {
         }
     }
 
-
     public List<String> getYears() {
         return years;
     }

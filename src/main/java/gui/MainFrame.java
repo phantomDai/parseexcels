@@ -4,10 +4,7 @@ import utl.ParseOrganization;
 import utl.ParseStudents;
 
 import javax.swing.table.TableColumn;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author phantom
@@ -98,10 +95,61 @@ public class MainFrame extends javax.swing.JFrame {
     private ParseOrganization parseOrganization;
 
 
+    Map<String,String[]> minzudangpaizuzhijigou;
+
+
+    Map<String,String[]> minzudangpaichengyuan;
+
+
+    Map<String,String[]> minzudangpaizuzhifazhan;
+
+    Map<String,String[]> gaojizhishifenzi;
+    Map<String,String[]> shizhiganbushuju;
+
+    List<List<String>> dangwaijujishuju;
+
+    Map<String,String[]> gangaotai;
+    Map<String,String[]> huaqiao;
+    Map<String,String[]> taiwan;
+    Map<String,String[]> waiguo;
+    Map<String,String[]> shaoshuminzu;
+    Map<String,String[]> shaoshuminzuban;
+    Map<String,String[]> zaixiao;
+
+
     public MainFrame() {
         initComponents();
+        inischool();
         parseStudents = new ParseStudents();
         parseOrganization = new ParseOrganization();
+        iniorganization();
+    }
+
+    private void iniorganization(){
+        Map<String,String[]> minzudangpaizuzhijigou = new HashMap<String, String[]>();
+
+
+        Map<String,String[]> minzudangpaichengyuan = new HashMap<String, String[]>();
+
+
+        Map<String,String[]> minzudangpaizuzhifazhan = new HashMap<String, String[]>();
+
+        Map<String,String[]> gaojizhishifenzi = new HashMap<String, String[]>();
+
+        Map<String,String[]> shizhiganbushuju = new HashMap<String, String[]>();
+
+        List<List<String>> dangwaijujishuju = new ArrayList<List<String>>();
+    }
+
+
+    private void inischool(){
+        Map<String,String[]> gangaotai = new HashMap<String, String[]>();
+        Map<String,String[]> huaqiao = new HashMap<String, String[]>();
+        Map<String,String[]> taiwan = new HashMap<String, String[]>();
+        Map<String,String[]> waiguo = new HashMap<String, String[]>();
+        Map<String,String[]> shaoshuminzu = new HashMap<String, String[]>();
+        Map<String,String[]> shaoshuminzuban = new HashMap<String, String[]>();
+        Map<String,String[]> zaixiao = new HashMap<String, String[]>();
     }
 
     /**
@@ -969,14 +1017,13 @@ public class MainFrame extends javax.swing.JFrame {
         //get the selected name
         String selectedSchool = (String) schoolOrganizationsjComboBox2.getSelectedItem();
         //get data
-        Map<String,String[]> gangaotai = parseStudents.getGangAoTaiData(selectedYear,selectedSchool);
-        Map<String,String[]> huaqiao = parseStudents.getHuaQiaoData(selectedYear,selectedSchool);
-        Map<String,String[]> taiwan = parseStudents.getTaiWanData(selectedYear,selectedSchool);
-        Map<String,String[]> waiguo = parseStudents.getWaiGuoData(selectedYear,selectedSchool);
-        Map<String,String[]> shaoshuminzu = parseStudents.getShaoShuMinZuData(selectedYear,selectedSchool);
-        Map<String,String[]> shaoshuminzuban = parseStudents.getShaoShuMinZuBanData(selectedYear,selectedSchool);
-        Map<String,String[]> zaixiao = parseStudents.getZaiXiaoData(selectedYear,selectedSchool);
-
+        gangaotai = parseStudents.getGangAoTaiData(selectedYear,selectedSchool);
+        huaqiao = parseStudents.getHuaQiaoData(selectedYear,selectedSchool);
+        taiwan = parseStudents.getTaiWanData(selectedYear,selectedSchool);
+        waiguo = parseStudents.getWaiGuoData(selectedYear,selectedSchool);
+        shaoshuminzu = parseStudents.getShaoShuMinZuData(selectedYear,selectedSchool);
+        shaoshuminzuban = parseStudents.getShaoShuMinZuBanData(selectedYear,selectedSchool);
+        zaixiao = parseStudents.getZaiXiaoData(selectedYear,selectedSchool);
 
         gangaoxuesehng.setModel(new javax.swing.table.DefaultTableModel(turnMapToMatrix(gangaotai),
                 new String [] {
@@ -1027,8 +1074,13 @@ public class MainFrame extends javax.swing.JFrame {
         return result;
     }
 
+    /**
+     * 学校信息导出
+     * @param evt
+     */
     private void schoolOutputActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
+
     }
 
     private void orginationsearchActionPerformed(java.awt.event.ActionEvent evt) {
@@ -1037,51 +1089,56 @@ public class MainFrame extends javax.swing.JFrame {
 
         String selectedSchool = (String) orgnazationBox2.getSelectedItem();
 
-        Map<String,String[]> minzudangpaizuzhijigou =
+        minzudangpaizuzhijigou =
                 parseOrganization.getMinzudangpaizuzhijigouData(selectedYear,selectedSchool);
 
-        Map<String,String[]> minzudangpaichengyuan =
+        minzudangpaichengyuan =
                 parseOrganization.getMinzudangpaichengyuanData(selectedYear,selectedSchool);
 
-        Map<String,String[]> minzudangpaizuzhifazhan =
+        minzudangpaizuzhifazhan =
                 parseOrganization.getMinzudangpaizuzhifazhanData(selectedYear,selectedSchool);
 
-        Map<String,String[]> gaojizhishifenzi =
+        gaojizhishifenzi =
                 parseOrganization.getGaojizhishiData(selectedYear,selectedSchool);
-        Map<String,String[]> shizhiganbushuju =
+        shizhiganbushuju =
                 parseOrganization.getShiZhiGanBuData(selectedYear,selectedSchool);
 
-        List<List<String>> dangwaijujishuju =
+        dangwaijujishuju =
                 parseOrganization.getDangwaijujiData(selectedYear,selectedSchool);
+
+
+
+
+
 
         minzudangpaizuzhichengyuan.setModel(new javax.swing.table.DefaultTableModel(turnMapToMatrix(minzudangpaichengyuan),
                 new String [] {
-                        "民族", "研究生（班数）", "研究生（人数）", "本专科生（班数）", "本专科生（人数）", "预科班（班数）", "预科班（人数）", "总计（班数）", "总计（人数）"
+                        "党派名称", "成员（总数）", "成员（男）", "成员（女）", "职称（高级）", "职称（中级）", "职称（初级）", "职称（无）", "年龄（29岁以下）", "年龄（30-39）", "年龄（40-49）", "年龄（50-59）", "年龄（60岁以上）", "离退休", "交叉党员（总数）", "交叉党员（在职数）", "党派市委委员以上", "党派中央委员以上", "担任处级职务", "担任局级以上领导职务", "变化情况（调入）", "变化情况（调出）", "变化情况（退出）", "变化情况（死亡）"
                 }));
 
         minzudangpaizuzhi.setModel(new javax.swing.table.DefaultTableModel(turnMapToMatrix(minzudangpaizuzhifazhan),
                 new String [] {
-                        "民族", "研究生（班数）", "研究生（人数）", "本专科生（班数）", "本专科生（人数）", "预科班（班数）", "预科班（人数）", "总计（班数）", "总计（人数）"
+                        "党派名称", "新建组织（委员会数）", "新建组织（总支数）", "新建组织（支部数）", "新建组织（小组数）", "发展成员数量", "高级职称", "中级职称", "低级职称", "无职称", "年龄（29岁以下）", "年龄（30-39岁）", "年龄（40-49岁）", "年龄（50-59岁）", "年龄（60岁以上）"
                 }));
 
         gaojizhishi.setModel(new javax.swing.table.DefaultTableModel(turnMapToMatrix(gaojizhishifenzi),
                 new String [] {
-                        "民族", "研究生（班数）", "研究生（人数）", "本专科生（班数）", "本专科生（人数）", "预科班（班数）", "预科班（人数）", "总计（班数）", "总计（人数）"
+                        "年龄段", "党外（总数）", "党外正高级（男）", "党外正高级（女）", "党外副高级（男）", "党外副高级（女）", "高级（总数）", "高级（男）", "高级（女）", "教职工（总数）", "教职工（男）", "教职工（女）"
                 }));
 
         shizhiganbu.setModel(new javax.swing.table.DefaultTableModel(turnMapToMatrix(shizhiganbushuju),
                 new String [] {
-                        "民族", "研究生（班数）", "研究生（人数）", "本专科生（班数）", "本专科生（人数）", "预科班（班数）", "预科班（人数）", "总计（班数）", "总计（人数）"
+                        "类别", "党外（总数）", "党外（男）", "党外（女）", "党外（高级职称）", "党外（中级职称）", "党外（低级职称）", "党外（无级职称）", "党外（29岁以下）", "党外（30-39岁）", "党外（40-49岁）", "党外（50-59岁）", "党外（60岁以上）", "党外（少数民族）", "党外（民主党派）", "实职干部总数"
                 }));
 
         dangwaijuji.setModel(new javax.swing.table.DefaultTableModel(turnListToMatrix(dangwaijujishuju),
                 new String [] {
-                        "民族", "研究生（班数）", "研究生（人数）", "本专科生（班数）", "本专科生（人数）", "预科班（班数）", "预科班（人数）", "总计（班数）", "总计（人数）"
+                        "序号", "姓名", "单位", "现任职务", "出生年月", "籍贯", "党派", "学历", "职称", "任职时间"
                 }));
 
         minzhudangpai.setModel(new javax.swing.table.DefaultTableModel(turnMapToMatrix(minzudangpaizuzhijigou),
                 new String [] {
-                        "民族", "研究生（班数）", "研究生（人数）", "本专科生（班数）", "本专科生（人数）", "预科班（班数）", "预科班（人数）", "总计（班数）", "总计（人数）"
+                        "党派名称", "委员会数", "总支数", "支部数", "小组数", "总人数", "联合组织数"
                 }));
     }
 
@@ -1096,9 +1153,14 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
 
-
+    /**
+     * 党派组织信息导出
+     * @param evt
+     */
     private void orginationoutputActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
+
+
     }
 
     private void orginationUpdateActionPerformed(java.awt.event.ActionEvent evt) {
